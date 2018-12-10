@@ -696,7 +696,11 @@ public class CameraPlugin implements MethodCallHandler {
       Surface previewSurface = new Surface(surfaceTexture);
       surfaces.add(previewSurface);
       captureRequestBuilder.addTarget(previewSurface);
-
+      
+      //stop crash when first allowing permissions
+      if(surfaces == null || imageReader == null){
+        return;
+      }
       surfaces.add(imageReader.getSurface());
 
       cameraDevice.createCaptureSession(
